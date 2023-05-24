@@ -17,7 +17,7 @@
 }
 .row {
 	width:100%;
-	margin: 0px auto;
+	margin: 0px auto; <!-- 가운데 정렬 --!>
 }
 </style>
 </head>
