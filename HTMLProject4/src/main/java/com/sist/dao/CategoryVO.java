@@ -8,7 +8,9 @@ package com.sist.dao;
  */
 public class CategoryVO {
 	private int cno;
+	private double score;
 	private String title,subject,poster;
+	
 	
 	public int getCno() {
 		return cno;
@@ -21,6 +23,12 @@ public class CategoryVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
 	}
 	public String getSubject() {
 		return subject;

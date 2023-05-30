@@ -37,8 +37,8 @@ public class FoodListServlet extends HttpServlet {
 		String cno = request.getParameter("cno");
 
 		//DAO연동
-		FoodDAO dao = FoodDAO.newInstance();
-		List<FoodVO> list = dao.food_category_data(Integer.parseInt(cno));
+		FoodDAO2 dao = FoodDAO2.newInstance();
+		List<FoodVO1> list = dao.food_category_data(Integer.parseInt(cno));
 		CategoryVO cvo = dao.food_category_info(Integer.parseInt(cno));
 
 		//화면에 출력
@@ -67,14 +67,15 @@ public class FoodListServlet extends HttpServlet {
 		out.println("<table class=table>");
 		out.println("<tr>");
 		out.println("<td>");
-		for(FoodVO vo:list) {
+		for(FoodVO1 vo:list) {
 			out.println("<table class=table>");
 			out.println("<tr>");
 			out.println("<td width=30% align=center rowspan=4>");
-			out.println("<img src="+vo.getPoster()+" class=img-rounded style=\"width:240px;height:200px\">");
+			//out.println(vo.getAddress());
+			out.println("<a href=FoodDetailServlet?fno="+vo.getFno()+"><img src="+vo.getPoster()+" class=img-rounded style=\"width:240px;height:200px\"></a>");
 			out.println("</td>");
 			out.println("<td width=70%><h3>");
-			out.println(vo.getName()+"&nbsp;<span style=\"color:orange\">"+vo.getScore()+"</span>");
+			out.println("<a href=FoodDetailServlet?fno="+vo.getFno()+">"+vo.getName()+"</a>&nbsp;<span style=\"color:orange\">"+vo.getScore()+"</span>");
 			out.println("</h3></td>");
 			out.println("</tr>");
 			out.println("<tr>");

@@ -4,7 +4,7 @@ package com.sist.dao;
 import java.util.*;
 import java.sql.*;
 
-public class FoodDAO {
+public class FoodDAO2 {
 	//연결 객체
 	private Connection conn;
 	//송수신
@@ -12,9 +12,9 @@ public class FoodDAO {
 	//오라클 URL 주소 설정
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 	//싱글턴
-	private static FoodDAO dao;
+	private static FoodDAO2 dao;
 	//1. 드라이버 등록 => 한번 수행 => 시작과 동시에 한번 수행 , 멤버변수 초기화: 생성자
-	public FoodDAO() {
+	public FoodDAO2() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			// ClassNotFoundException => 체크 예외처리 => 반드시 예외처리 한다
@@ -44,9 +44,9 @@ public class FoodDAO {
 	// 메모리누수 현상을 방지 ...
 	// DAO => new를 이용해서 생성 => 사용하지 않는 DAO가 오라클을 연결하고 있다
 	// 싱글턴은 데이터베이스에서는 필수 조건
-	public static FoodDAO newInstance() {
+	public static FoodDAO2 newInstance() {
 		if(dao == null)
-			dao = new FoodDAO();
+			dao = new FoodDAO2();
 		return dao;
 	}
 
@@ -68,9 +68,9 @@ public class FoodDAO {
 				CategoryVO vo = new CategoryVO();
 				vo.setCno(rs.getInt(1));
 				vo.setTitle(rs.getString(2));			
-				//vo.setDouble(rs.getDouble(3)));
 				vo.setSubject(rs.getString(3));
 				vo.setPoster(rs.getString(4));
+				
 				list.add(vo);
 			}
 			rs.close();
@@ -110,17 +110,17 @@ public class FoodDAO {
 	}
 	//5-2. 카테고리별 맛집 출력
 	//List<FoodVO>
-	public List<FoodVO> food_category_data(int cno) {
-		List<FoodVO> list = new ArrayList<FoodVO>();
+	public List<FoodVO1> food_category_data(int cno) {
+		List<FoodVO1> list = new ArrayList<FoodVO1>();
 		try {
 			getConnection();
-			String sql ="SELECT fno,name,poster,address,phone,type "
+			String sql ="SELECT fno,name,poster,address,phone,type,score " 
 						+"FROM food_house "
 						+"WHERE cno="+cno;
 			ps=conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				FoodVO vo = new FoodVO();
+				FoodVO1 vo = new FoodVO1();
 				vo.setFno(rs.getInt(1));
 				vo.setName(rs.getString(2));
 				String poster = rs.getString(3);
@@ -144,6 +144,7 @@ public class FoodDAO {
 				vo.setAddress(address.trim());
 				vo.setPhone(rs.getString(5));
 				vo.setType(rs.getString(6));
+				vo.setScore(rs.getDouble(7));
 				
 				list.add(vo);
 			}
@@ -156,6 +157,118 @@ public class FoodDAO {
 	}
 	//5-3. 맛집 상세보기
 	// FoodVO
+	public FoodVO1 foodDetailData(int fno) {
+		FoodVO1 vo = new FoodVO1();
+		try {
+			getConnection();
+			String sql = "SELECT fno,cno,name,poster,phone,type,address,"
+						+ "time,parking,menu,price,score "
+						+ "FROM food_house "
+						+ "WHERE fno=?";
+			ps = conn.prepareStatement(sql);
+			
+			//?에 값 채우기 => JSP/프로젝트
+			//2차 => Mybatis, 보안(비밀번호 암호화), 실시간 => Betch
+			//3차 => 오라클(MySQL), JPA
+			//기반 => MSA 기반		CI/CD => 설치 (젠킨스)
+			ps.setInt(1, fno);
+			//실행 요청 
+			ResultSet rs = ps.executeQuery(); //=> 결과값 받기
+			rs.next(); //커서 위치 변경 => 데이터가 출력한 위치로 변경
+			vo.setFno(rs.getInt(1));
+			vo.setCno(rs.getInt(2));
+			vo.setName(rs.getString(3));
+			vo.setPoster(rs.getString(4));
+			vo.setPhone(rs.getString(5));
+			vo.setType(rs.getString(6));
+			vo.setAddress(rs.getString(7));
+			vo.setTime(rs.getString(8));
+			vo.setParking(rs.getString(9));
+			vo.setMenu(rs.getString(10));
+			vo.setPrice(rs.getString(11));
+			vo.setScore(rs.getDouble(12));
+			
+			rs.close();
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnection();
+		}
+		return vo;
+	}
 	//5-4. 맛집 검색
 	//List<FoodVO>
+	public List<FoodVO1> foodFindData(String addr, int page) {
+		List<FoodVO1> list = new ArrayList<FoodVO1>();
+		try {
+			getConnection();
+			/*String sql = "SELECT fno,name,poster,score "
+						+"FROM food_location "
+						+"WHERE address LIKE '%'||?||'%'";
+			// => mysql => LIKE CONCAT('%', ?, '%') 
+			 */
+			String sql = "SELECT fno,name,poster,score,num "
+					+"FROM (SELECT fno,name,poster,score,rownum as num "
+					+"FROM (SELECT fno,name,poster,score "
+					+"FROM food_location "
+					+"WHERE address LIKE '%'||?||'%')) "
+					+"WHERE num BETWEEN ? AND ?";
+			ps = conn.prepareStatement(sql);
+			int rowSize=12;
+			int start = (rowSize*page)-(rowSize-1);
+			int end = rowSize*page;
+			// ?값채움
+			ps.setString(1, addr);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
+			
+			//결과값 읽기
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				FoodVO1 vo = new FoodVO1();
+				vo.setFno(rs.getInt(1));
+				vo.setName(rs.getString(2));
+				String poster = rs.getString(3);
+				poster = poster.substring(0, poster.indexOf("^"));
+				poster = poster.replace("#", "&");
+				vo.setPoster(poster);
+				vo.setScore(rs.getDouble(4));
+				list.add(vo);
+			
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnection();
+		}
+		return list;
+	}
+	//5-4-1. 총페이지 ==> 데이터(오라클)에서 가져옴
+	public int foodRowCount(String addr) {
+		int count=0;
+		try {
+			getConnection();
+			String sql="SELECT COUNT(*) FROM food_location "
+						+ "WHERE address LIKE '%'||?||'%'";
+			ps = conn.prepareStatement(sql);
+			
+			//값채우기
+			ps.setString(1, addr);
+			
+			//
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			count = rs.getInt(1);
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnection();
+		}
+		return count;
+	}
+	//5-5. 댓글 (CURD) => 로그인
 }

@@ -26,7 +26,7 @@ public class FoodCategoryServlet extends HttpServlet {
 		//				=> 사용자의 브라우저
 		
 		//데이터베이스 연결
-		FoodDAO dao = FoodDAO.newInstance();
+		FoodDAO2 dao = FoodDAO2.newInstance();
 		List<CategoryVO> list = dao.food_category_list();  // 카테고리 정보를 오라클로부터 받아온다 30개 들어있음
 		out.println("<html>");
 		out.println("<head>");

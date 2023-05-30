@@ -16,7 +16,7 @@ package com.sist.dao;
  BAD         NUMBER
  POSTER      NOT NULL VARCHAR2(4000)
  */
-public class FoodVO {
+public class FoodVO1 {
 	private int fno, cno;
 	private double score;
 	private String name,address,phone,type,price,parking,time,menu,poster;
