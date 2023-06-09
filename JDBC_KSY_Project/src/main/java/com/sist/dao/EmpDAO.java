@@ -196,12 +196,20 @@ public class EmpDAO {
 						+"AND sal BETWEEN losal AND hisal "
 						+"AND empno=?";
 */			
-			String sql = "SELECT empno,ename,job,NVL(mgr,0),TO_CHAR(hiredate,'YYYY-MM-DD'),TO_CHAR(sal,'L999,999'),NVL(comm,0), "
+
+/*			String sql = "SELECT empno,ename,job,NVL(mgr,0),TO_CHAR(hiredate,'YYYY-MM-DD'),TO_CHAR(sal,'L999,999'),NVL(comm,0), "
 						+"(SELECT dname FROM dept d WHERE d.deptno=md.deptno) AS dname, "
 						+"(SELECT loc FROM dept d WHERE d.deptno=md.deptno) AS loc ,grade "
 						+"FROM myEmp me,myDept md, myGrade mg "
 						+"WHERE me.deptno=md.deptno AND sal BETWEEN losal AND hisal AND empno=?";
-					;
+*/
+			String sql = "SELECT empno,ename,job,NVL(mgr,0),TO_CHAR(hiredate,'YYYY-MM-DD'),TO_CHAR(sal,'L999,999'),NVL(comm,0), "
+						+"(SELECT dname FROM myDept md WHERE md.deptno=me.deptno) AS dname, "
+						+"(SELECT loc FROM myDept md WHERE md.deptno=me.deptno) AS loc, "
+						+"(SELECT grade From myGrade mg WHERE sal BETWEEN losal AND hisal) AS grade "
+						+"FROM myEmp me "
+						+"WHERE empno=?";
+			
 			ps=conn.prepareStatement(sql);
 			
 			// ?에 값을 채운다
