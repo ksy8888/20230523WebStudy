@@ -43,7 +43,7 @@ public class EmpListServlet extends HttpServlet {
 	      out.write("<h1>사원 목록</h1>");
 	      out.write("<div class=row>");
 	      out.write("<table class=\"table table-striped\">");
-	      out.write("<tr class=success>");
+	      out.write("<tr class=info>");
 	      out.write("<th class=text-center>사번</th>");
 	      out.write("<th class=text-center>이름</th>");
 	      out.write("<th class=text-center>직위</th>");
