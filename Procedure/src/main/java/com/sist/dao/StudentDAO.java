@@ -13,6 +13,7 @@ public class StudentDAO {
 	private CallableStatement cs;
 	//URL
 	private final String URL="jdbc:oracle:thin:@localhost:1521:xe";
+	//private final String URL="jdbc:oracle:thin:@211.238.142.118:1521:xe";
 	//Singleton
 	private static StudentDAO dao; //사용하지 않는 객체 쌓이는걸 방지함
 	//Driver등록
