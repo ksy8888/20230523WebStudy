@@ -37,7 +37,7 @@ public class EmpDAO {
 	 					
 	 */
 	public void empInsert(EmpVO vo) {
-		try {
+		try { 
 			conn = db.getConnection();
 			//JOIN => SELECT
 			//SUBQUERY => SELECT, INSERT, UPDATE, DELETE
