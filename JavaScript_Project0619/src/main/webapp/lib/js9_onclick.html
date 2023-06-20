@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+let i=0;	//open(0)/close(1)
+window.onload=()=> {
+	let  r= document.querySelector("#read");
+	// => css제어할때는 <style>
+	r.onmouseover=() => {
+		r.style.cursor="pointer"
+	}
+	r.onmouseout=()=> {
+		r.style.cursor="none"
+	}
+	r.onclick=()=> {
+		if(i==0) {
+			let ss=document.querySelector("#s");
+			ss.style.display=''; //open => show
+			r.textContent="닫기"
+			i=1;
+		}else {
+			let ss=document.querySelector("#s");
+			ss.style.display='none';	//close => hide
+			r.textContent="더보기"
+			i=0;
+		}
+	}
+	
+	//form  태그에서 submit을 제거 => 이벤트 제거
+	//e.defaultPrevent()
+	document.querySelector('#click').onclick=()=> {
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+	<a href="http://www.naver.com" id="click">Naver</a>
+	<p>
+	<pre>
+소금 알갱이보다 작은 초소형 미니백이 공개됐다. 가방의 기능은 줄이고 브랜드만 강조하는 현실을 풍자하기 위함이다. 이 가운데 해외 언론에서는 “한국에서 명품 가방은 자신의 지위를 보여주는 사회적 갑옷이 됐다”고 평가했다.
+
+미국 뉴욕타임스(NYT) 등에 따르면 미국 뉴욕의 예술가집단 MSCHF는 바늘귀를 통과할 수 있을 정도로 작은 초소형 미니백을 제작했다.
+
+가방의 사이즈는 657×222×700마이크로미터로, 현미경을 통해 들여다봐야 자세한 디자인이 보일 정도로 작다. 현미경으로 가방을 보면 한 명품브랜드의 로고가 적혀있다. 실제 사용할 수 있는 가방처럼 보일 정도로 정교하다.
+
+<span id="read">더보기</span>
+<span style="display:none" id="s">
+MSCHF는 가방이 점점 작아지면서 기능적인 측면은 줄고 브랜드만 강조되고 있는 점을 표현했다. 이들은 이 초소형 미니백을 두고 “점점 작아지는 가방 디자인의 종착역”이라고 설명했다.
+
+해당 가방은 이달 말 프랑스 파리에서 열리는 남성 패션 위크 기간 동안 현미경 아래에 부착돼 전시됐다가 경매 플랫폼 주피터를 통해 판매될 예정이다.
+
+MSCHF는 브랜드 측에 로고와 디자인에 대한 사용 허가를 요청하지는 않은 것으로 알려졌다.
+</span>
+	</pre>
+</body>
+</html>
