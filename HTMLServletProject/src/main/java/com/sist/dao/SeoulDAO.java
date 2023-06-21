@@ -1,7 +1,7 @@
 package com.sist.dao;
 import java.util.*;
 import java.sql.*;
-import com.sist.dbcom.*;
+import com.sist.dbcom.*; 
 
 public class SeoulDAO {
 	private String[] tables = {
