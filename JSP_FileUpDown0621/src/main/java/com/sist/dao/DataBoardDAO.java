@@ -11,7 +11,7 @@ public class DataBoardDAO {
 		// 송수진 (SQL => 결과값(데이터값))
 		private PreparedStatement ps;
 		//URL
-		private final String URL="jdbc:oracle:thin:@211.238.142.101:1521:XE";
+		private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
 		// 싱글턴
 		private static DataBoardDAO dao;
 		//static => 저장 공간이 한개 
