@@ -138,7 +138,7 @@ public class FoodDAO {
 		}
 		return list;
 	}
-	
+	 
 	public int foodTotalpage(String addr) {
 		int total=0;
 		try {
