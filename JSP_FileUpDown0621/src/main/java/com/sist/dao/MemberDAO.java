@@ -50,7 +50,7 @@ public class MemberDAO {
 			//로그인 처리
 			public MemberVO isLogin(String id, String pwd) {
 				MemberVO vo = new MemberVO();
-				String result="";
+				
 				
 				try {
 					getConnection();

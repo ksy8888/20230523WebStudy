@@ -29,7 +29,8 @@
 	vo.setPwd(pwd);
 	
 	//<input type=file name=upload class="input-sm" size=20>
-	String filename = mr.getOriginalFileName("upload");
+	
+	String filename = mr.getFilesystemName("upload");
 	if(filename==null) {	//업로드가 안된 상태 
 		vo.setFilename("");
 		vo.setFilesize(0);
