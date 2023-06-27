@@ -124,9 +124,11 @@ public class FoodDAO {
 				// 강서구 양천로47가길 43 지번 서울시 강서구 가양동 239-14
 				String addr1 = addr.substring(addr.indexOf(" "));	
 				addr1 = addr1.trim();
+				System.out.println(addr1);
 				//강서구
 				String addr2=addr1.substring(0,addr1.indexOf(" "));
 				vo.setAddress(addr2);
+				System.out.println(addr2);
 				
 				list.add(vo);
 			}
