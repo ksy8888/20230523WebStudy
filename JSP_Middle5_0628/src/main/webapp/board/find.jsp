@@ -67,7 +67,7 @@
 		    <th width=10% class="text-center">조회수</th>   
 		   </tr>
 		   <c:forEach var="vo" items="${list }">
-			   <tr class="success">
+			   <tr>
 			    <td width=10% class="text-center">${vo.no }</td>
 			    <td width=10%>${vo.subject }</td>
 			    <td width=10% class="text-center">${vo.name }</td>
