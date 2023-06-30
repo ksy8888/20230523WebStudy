@@ -19,6 +19,7 @@ import org.w3c.dom.*;
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	 
 	private Map<String,Model> clsMap = new HashMap<String,Model>();
 	
 	public void init(ServletConfig config) throws ServletException {
