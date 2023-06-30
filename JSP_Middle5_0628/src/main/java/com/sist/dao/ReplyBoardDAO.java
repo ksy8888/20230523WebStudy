@@ -7,7 +7,7 @@ import javax.naming.*;
 
 public class ReplyBoardDAO {
 	//연결 객체
-	private Connection conn;
+	private Connection conn; 
 	//송수신 , SQL 전송=결과값 받기
 	private PreparedStatement ps;
 	//싱글턴
