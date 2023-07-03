@@ -90,7 +90,7 @@ public class DisPatcherServlet extends HttpServlet {
 				String id = bean.getAttribute("id");	//bean안의 id태그 값
 				String cls = bean.getAttribute("class"); //bean안의 class 태그 값
 				System.out.println(id+":"+cls);
-				clsList.add(cls);
+				clsList.add(cls);	//모델 클래스를 clsList에 등록
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -120,15 +120,15 @@ public class DisPatcherServlet extends HttpServlet {
 			// /JSP_MVC_6_0630/food/category.do >> URI
 			// ----------------ContextPath()
 			// food/category.do     >> getContextPath().length()+1  ==> path
-			for(String cls:clsList) {				
+			for(String cls:clsList) {		//clsList >> 모델의 모든 클래스 >> bean(application.xml)			
 				Class clsName = Class.forName(cls); // Class 정보 읽기				 
 				Object obj = clsName.getDeclaredConstructor().newInstance(); //메모리 할당 new Board..				
 				Method[] methods = clsName.getDeclaredMethods(); // 메소드 읽어 온다
 				for(Method m : methods) {
-					RequestMapping rm = m.getAnnotation(RequestMapping.class);
+					RequestMapping rm = m.getAnnotation(RequestMapping.class);	// @RequestMapping된 클래스 찾기
 					if(rm.value().equals(path)) {
-						String jsp = (String)m.invoke(obj, request,response);
-						if(jsp==null) {	//리턴형이 void일때  (ajax 에서 사요)
+						String jsp = (String)m.invoke(obj, request,response);	//메소드 호출
+						if(jsp==null) {	//리턴형이 void일때  (ajax 에서 사용)
 							return;
 						}
 						else if (jsp.startsWith("redirect:")) {

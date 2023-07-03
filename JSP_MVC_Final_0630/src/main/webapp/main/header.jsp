@@ -1,10 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	$('#logBtn').click(function() {
+		//유효성 검사 => 반드시 입력할 수 있게함
+		let id = $('#id').val();
+		if(id.trim()=="") {
+			$('#id').focus();
+			return;
+		}
+		
+		let pwd = $('#pwd').val();
+		if(pwd.trim() == "") {
+			$('#pwd').focus();
+			return;
+		}
+		
+		//전송 => 실행결과를 가지고 온다 (자체 처리) (요청=응답 : Ajax,Vue,React)
+		$.ajax({
+			type:'post',
+			url:'../member/login.do',
+			data:{"id":id,"pwd":pwd},
+			success:function(result) {	//NOID,NOPWD,OK
+				let res = result.trim();
+				if(res=== 'NOID') {
+					alert("아이디가 존재하지 않습니다!");
+					$('#id').val("");
+					$('#pwd').val("");
+					$('#id').focus();
+				}
+				else if(res==='NOPWD') {
+					alert("비밀번호가 틀립니다!")
+					$('#pwd').val("");
+					$('#pwd').focus();
+				}
+				else {
+					location.href = "../main/main.do"
+				}
+				
+			}
+		})
+		
+	})
+	$('#logoutBtn').click(function() {
+		location.href="../member/logout.do";
+	})
+})
+</script>
 </head>
 <body>
 		<div class="wrapper row1">
@@ -14,11 +64,21 @@
 	      <h1><a href="../main/main.do">Food & Recipe</a></h1>
 	    </div>
 	    <div class="fl_right">
+	     <c:if test="${sessionScope.id == null }">
 	      <ul class="inline">
-	        <li><i class="fa fa-phone"></i><input type=text name=id class="input-sm" size=10></li>
-	        <li><i class="fa fa-envelope-o"></i><input type=password name=pwd  class="input-sm" size=10></li>
-	         <li><input type=button value="로그인" class="btn btn-sm btn-danger"></li>
+	        <li><i class="fa fa-phone"></i><input type=text name=id class="input-sm" size=10 id=id></li>
+	        <li><i class="fa fa-envelope-o"></i><input type=password name=pwd  class="input-sm" size=10 id=pwd></li>
+	         <li><input type=button value="로그인" class="btn btn-sm btn-danger" id="logBtn"></li>
 	      </ul>
+	     </c:if>
+	     
+	     <c:if test="${sessionScope.id != null }">
+	      <ul class="inline">
+	        <li>${sessionScope.name }(${sessionScope.admin == 'y'?"관리자":"일반사용자" }) 님 로그인중입니다</li>
+	         <li><input type=button value="로그아웃" class="btn btn-sm btn-danger" id="logoutBtn"></li>
+	      </ul>
+	     </c:if>
+	     
 	    </div>
 	    <!-- ################################################################################################ --> 
 	  </header>
@@ -29,18 +89,47 @@
 
 	    <ul class="clear">
 	      <li class="active"><a href="../main/main.do">홈</a></li>
-	      <li><a class="drop" href="#">맛집</a>
+	      <c:if test="${sessionScope.id == null }">  <%-- 로그인이 안된 상태 --%>
+	      <li><a class="drop" href="#">회원</a>
 	        <ul>
-	          <li><a href="pages/gallery.html">지역별 맛집찾기</a></li>
-	          <li><a href="pages/full-width.html">맛집 예약</a></li>
-	          <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
+	          <li><a href="../member/join.do">회원 가입</a></li>	<%-- Model로 넘어감 먼저 application.xml 가서 bean등록--%>
+	          <li><a href="pages/full-width.html">아이디 찾기</a></li>
+	          <li><a href="pages/sidebar-left.html">비밀번호 찾기</a></li>
 	        </ul>
 	      </li>
+	      </c:if>
+	      <c:if test="${sessionScope.id != null }"> <%-- 로그인 상태 --%>
+	       <li><a class="drop" href="#">회원</a>
+	        <ul>
+	          <li><a href="pages/gallery.html">회원 수정</a></li>
+	          <li><a href="pages/full-width.html">회원 탈퇴</a></li>
+	        </ul>
+	      </li>
+	      </c:if>
+	      <li><a class="drop" href="#">맛집</a>
+	        <ul>
+	          <li><a href="../food/location_find.do">지역별 맛집찾기</a></li>
+	          <%--
+	          	sessionScope.id
+	          	session.getAttribute("id")
+	          	
+	          	${name}
+	          	request.getAttribute("name")
+	           --%>
+	          <c:if test="${sessionScope.id != null }">
+	          <li><a href="pages/full-width.html">맛집 예약</a></li>
+	          <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
+	          </c:if>
+	        </ul>
+	      </li>
+	     <%--  </c:if> --%>
 	      <li><a class="drop" href="#">레시피</a>
 	        <ul>
 	          <li><a href="pages/gallery.html">레시피</a></li>
 	          <li><a href="pages/full-width.html">쉐프</a></li>
+	          <c:if test="${sessionScope.id != null }">
 	          <li><a href="pages/sidebar-left.html">레시피만들기</a></li>
+	          </c:if>
 	        </ul>
 	      </li>
 	      <li><a class="drop" href="#">서울여행</a>
@@ -48,7 +137,9 @@
 	          <li><a href="pages/gallery.html">명소</a></li>
 	          <li><a href="pages/full-width.html">자연 & 관광</a></li>
 	          <li><a href="pages/sidebar-left.html">쇼핑</a></li>
+	         <c:if test="${sessionScope.id != null }">
 	          <li><a href="pages/sidebar-left.html">코스</a></li>
+	         </c:if>
 	        </ul>
 	      </li>
 	      <li><a href="#">레시피 스토어</a></li>
@@ -56,10 +147,21 @@
 	        <ul>
 	          <li><a href="pages/gallery.html">공지사항</a></li>
 	          <li><a href="pages/full-width.html">자유게시판</a></li>
+	        <c:if test="${sessionScope.id != null }"> 
 	          <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
+			</c:if>	          
 	        </ul>
 	      </li>
-	      <li><a href="#">마이페이지</a></li>
+	     <c:if test="${sessionScope.id != null }">
+	     	 <c:if test="${sessionScope.admin == 'n' }">
+	     	 	<li><a href="#">마이페이지</a></li>
+	     	 </c:if>
+	     	 <c:if test="${sessionScope.admin == 'y' }">
+	     	 	<li><a href="#">관리자페이지</a></li>
+	     	 </c:if>
+	     </c:if>
+	      
+	    
 	    </ul>
 	    <!-- ################################################################################################ --> 
 	  </nav>
