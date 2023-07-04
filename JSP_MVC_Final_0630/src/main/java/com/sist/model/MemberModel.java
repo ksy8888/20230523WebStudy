@@ -43,9 +43,11 @@ public class MemberModel {
 	}
 	
 	@RequestMapping("member/postfind.do")	//사용자에게서 member/postfind.do 요청이 들어오면
-	public String memberPostFind(HttpServletRequest request, HttpServletResponse response) {
-		return "../member/postfind.jsp"; //postfind.jsp를 보여달라
+	
+	 public String memberPostFind(HttpServletRequest request, HttpServletResponse response) { 
+		return "../member/postfind.jsp"; //postfind.jsp를 보여달라 
 	}
+	 
 	
 	@RequestMapping("member/postfind_result.do")
 	public String memberPostFindResult(HttpServletRequest request, HttpServletResponse response) {
