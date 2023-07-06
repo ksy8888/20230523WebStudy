@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sist.common.CommonModel;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
 import com.sist.vo.*;
@@ -34,12 +35,17 @@ public class FreeBoardModel {
 		//main_jsp => 화면 출력 //request는 /main/main.jsp에게 보냄  /board/list.jsp는 request를 main에게 공유받아 출력
 		request.setAttribute("main_jsp", "../board/list.jsp");
 		
+		CommonModel.commonRequestData(request);
+		
 		return "../main/main.jsp";	//main.jsp(header,footer고정)을 띄우는데 list.jsp 파일을 보여줌
 	}
 	//데이터 추가
 	@RequestMapping("board/insert.do")
 	public String board_insert(HttpServletRequest request, HttpServletResponse response) {
 		request.setAttribute("main_jsp", "../board/insert.jsp");
+		
+		CommonModel.commonRequestData(request);
+		
 		return "../main/main.jsp";
 	}
 	
@@ -73,6 +79,9 @@ public class FreeBoardModel {
 		
 		request.setAttribute("vo", vo); //vo안의 데이터는 board/detail.jsp
 		request.setAttribute("main_jsp", "../board/detail.jsp");
+		
+		CommonModel.commonRequestData(request);
+		
 		return "../main/main.jsp";
 	}
 	
@@ -99,6 +108,9 @@ public class FreeBoardModel {
 		
 		request.setAttribute("vo", vo);
 		request.setAttribute("main_jsp", "../board/update.jsp");
+		
+		CommonModel.commonRequestData(request);
+		
 		return "../main/main.jsp";
 	}
 	
