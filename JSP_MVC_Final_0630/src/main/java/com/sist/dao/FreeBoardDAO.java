@@ -213,6 +213,13 @@ public class FreeBoardDAO {
 			
 			if(db_pwd.equals(pwd)) {
 				res="YES";
+				// 참조하고 있는 댓글을 먼저 지운다
+				sql="DELETE FROM project_freeboard_reply "
+						+ "WHERE bno=?";	//bno게시물번호에 대한 댓글들을 지움
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, no);
+				ps.executeUpdate();
+				
 				sql="DELETE FROM project_freeboard WHERE no=?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, no);

@@ -166,6 +166,11 @@ public class FoodModel {
 		request.setAttribute("main_jsp", "../food/food_detail.jsp");
 		
 		CommonModel.commonRequestData(request);
+		
+		//댓글 읽기
+		ReplyDAO rdao = ReplyDAO.newInstance();
+		List<ReplyVO> list = rdao.replyListData(1, Integer.parseInt(fno));
+		request.setAttribute("rList", list);	//food_detail에서 뿌리러감
 		return "../main/main.jsp";
 	}
 }

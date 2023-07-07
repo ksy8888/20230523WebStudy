@@ -25,4 +25,12 @@ public class CreateDataBase {
 			if(conn!=null) conn.close();
 		} catch (Exception e) {}
 	}
+	//오버로딩
+	public void disConnection(Connection conn, CallableStatement ps) { 	//CallableStatement 프로시저 호출
+		try {
+			if(ps!=null) ps.close();
+			if(conn!=null) conn.close();
+		} catch (Exception e) {}
+	}
+	
 }

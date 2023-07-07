@@ -80,6 +80,11 @@ public class FreeBoardModel {
 		request.setAttribute("vo", vo); //vo안의 데이터는 board/detail.jsp
 		request.setAttribute("main_jsp", "../board/detail.jsp");
 		
+///댓글 읽기
+		FreeBoardReplyDAO fdao = FreeBoardReplyDAO.newInstance();
+		List<FreeBoardReplyVO> list = fdao.replyListData(Integer.parseInt(no)); //no게시물번호의 댓글을 읽어와라
+		request.setAttribute("list", list);
+		
 		CommonModel.commonRequestData(request);
 		
 		return "../main/main.jsp";

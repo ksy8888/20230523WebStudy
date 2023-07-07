@@ -13,6 +13,27 @@
 	width: 960px;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+
+let i=0; //전역변수
+$(function() {
+	$('.ups').click(function() {	//수정버튼 클릭(<span>)
+		$('.updates').hide();	//전부닫아두고
+		$('.ups').text("수정");
+		let no = $(this).attr("data-no"); //클릭한게this , data-no속성값 가져옴
+		if(i==0) {
+			$(this).text("취소");
+			$('#u'+no).show();
+			i=1;
+		} else {
+			$(this).text("수정");
+			$('#u'+no).hide();
+			i=0;
+		}
+	})
+})
+</script>
 </head>
 <body>	
 	<div class="wrapper row3">
@@ -86,6 +107,63 @@
 	  			   </td>
 	  			 </tr>
 	  			</table>
+<%-- 댓글 --%>	  		
+			    <div style="height:20px"></div>
+			    <h3>댓글</h3>
+			    <hr>
+			    <table class="table">
+			      <tr>
+			       <td>
+			         <c:forEach var = "rvo" items="${rList }">
+			          <table class="table">
+			            <tr>
+			             <td class="text-left">
+			             ♣ ${rvo.name }&nbsp;(${rvo.dbday })
+			             </td>
+			             <td class="text-right">
+			              <c:if test="${sessionScope.id==rvo.id }"> <%--본인이 쓴거면 --%>
+			               <span class="btn btn-xs btn-danger ups" data-no="${rvo.no }">수정</span>
+			               <a href="../reply/reply_delete.do?no=${rvo.no }&type=${rvo.type}&cno=${rvo.cno}" class="btn btn-xs btn-primary">삭제</a>
+			              </c:if>
+			             </td>
+			            </tr>
+			            <tr>
+			             <td colspan="2" valign="top" class="text-left">
+			              <pre style="white-space:pre-wrap; background-color:white; border:none">${rvo.msg }</pre>
+			             </td>
+			            </tr>
+		<%-- 수정폼 --%>	     
+						<tr style="display:none" class="updates" id="u${rvo.no }">
+				      <td colspan="2">
+				      <form method=post action="../reply/reply_update.do?no=${rvo.no }">
+				      <input type="hidden" name="no" value="${rvo.no} }">
+				      <input type="hidden" name="cno" value="${vo.fno }"> <%--이동용 --%>
+				      <input type="hidden" name="type" value="1"> <%-- 1.맛집 --%> <%--이동용 --%>
+				       <textarea rows="5" cols="55" name="msg" style="float:left">${rvo.msg }</textarea>
+				       <input type=submit value="댓글수정" style="width:120px;height:104px; background-color:green; color:white">
+				       </form>
+				      </td>
+				     </tr>
+				            
+			          </table>
+			         </c:forEach>
+			       </td>
+			      </tr>
+			    </table>
+			    <c:if test="${sessionScope.id !=null }">
+				    <table class="table">
+				     <tr>
+				      <td>
+				      <form method=post action="../reply/reply_insert.do">
+				      <input type="hidden" name="cno" value="${vo.fno }">
+				      <input type="hidden" name="type" value="1"> <%-- 1.맛집 --%>
+				       <textarea rows="5" cols="60" name="msg" style="float:left"></textarea>
+				       <input type=submit value="댓글쓰기" style="width:120px;height:104px; background-color:green; color:white">
+				       </form>
+				      </td>
+				     </tr>
+				    </table>	
+	  			</c:if>
 	  		</div>
 	  		<%-- --%>
 	  		<div class="col-sm-4">

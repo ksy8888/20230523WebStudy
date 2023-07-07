@@ -1,6 +1,7 @@
 package com.sist.model;
 import java.util.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,9 +40,51 @@ public class GoodsModel {
 		request.setAttribute("msg", msg[Integer.parseInt(type)]);
 		
 		request.setAttribute("main_jsp", "../goods/goods_list.jsp");
+		request.setAttribute("type", type);
 		
 		CommonModel.commonRequestData(request);
 		
+		return "../main/main.jsp";
+	
+	}
+	
+	@RequestMapping("goods/goods_detail_before.do")
+	public String goods_detail_before(HttpServletRequest request, HttpServletResponse response) {
+		//no
+		String no = request.getParameter("no");
+		String type = request.getParameter("type");
+		
+		// 전송값 => 상세보기 : primary key
+		// 검색 => 검색어
+		// 로그인 (id,pwd) , ...
+		//Cookie에 저장
+		Cookie cookie = new Cookie("goods_"+no, no);
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie); //브라우저에 쿠키전송
+		// sendRedirect() => 기존에 제작된 메소드 (메소드를 호출)
+		   // => 반복 제거 => getConnection
+		   // forward => 새로운 데이터를 전송 (글쓰기 >> 리스트)
+		  // sendRedirect => _ok.do , _before.do
+		return "redirect:../goods/goods_detail.do?no="+no+"&type="+type;	//redirect는 메소드를 다시 호출 >> 쿠키생성 후 다시수행하게	   
+	}					   			//↓
+	@RequestMapping("goods/goods_detail.do")
+	public String goods_detail(HttpServletRequest request, HttpServletResponse response) {
+		String no = request.getParameter("no");
+		String type = request.getParameter("type");
+			
+		//DAO 연결
+		GoodsDAO dao = GoodsDAO.newInstance();
+		//VO
+		GoodsVO vo = dao.goodsDetailData(Integer.parseInt(no), Integer.parseInt(type));
+	
+		request.setAttribute("vo", vo);
+		request.setAttribute("type", type);
+		//데이터 => goods_detail전달
+		//결과값을 request로 묶어서 => goods_detail.jsp 로 전달
+		CommonModel.commonRequestData(request);
+		
+		request.setAttribute("main_jsp", "../goods/goods_detail.jsp");
 		return "../main/main.jsp";
 	}
 }

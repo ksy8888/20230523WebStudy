@@ -41,7 +41,9 @@
 	       		  <td width=65%>${vo.address }</td>
 	       		 </tr>
 	       		 <tr>
-	       		  <td width=65% height="150"></td>
+	       		  <td width=65% height="150" valign="top" class="text-left">
+	       		    <pre style="white-space: pre-wrap; background-color:white; border:none;"><b>★${vo.rname }</b>&nbsp;${vo.msg }</pre>
+	       		  </td>
 	       		 </tr>
 	       		 
 	       	</table>
