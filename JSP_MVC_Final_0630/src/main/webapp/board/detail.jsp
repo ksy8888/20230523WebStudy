@@ -18,6 +18,7 @@
 <script type="text/javascript">
 let i=0;	//전역변수
 let u=0;
+let k=0;
 $(function() {
 	$('#del').click(function() { //del클릭했을때
 		if(i==0) {
@@ -65,6 +66,7 @@ $(function() {
 		let no= $(this).attr("data-no");
 	$('.ups').text("수정");
 	$('.updates').hide();
+	$('.reins').hide();	//
 		if(u==0) {
 			$('#u'+no).show();
 			$(this).text("취소");
@@ -74,7 +76,24 @@ $(function() {
 			$(this).text("수정");
 			u=0;
 		}
-	})   
+	}) 
+	//대댓글
+	$('.ins').click(function() {
+		let no = $(this).attr("data-no");
+		$('.ins').text("댓글");
+		$('.reins').hide();	//
+		$('.updates').hide();  
+		if(k==0) {
+			$(this).text("취소");
+			$('#k'+no).show();
+			k=1;
+		} 
+		else{
+			$(this).text("댓글");
+			$('#k'+no).hide();
+			k=0;
+		}
+	})
 })
 </script>
 </head>
@@ -128,7 +147,7 @@ $(function() {
  			        <table class="table">
  			          <tr>
  			            <td class="text-left">
- 			              <c:if test="${rvo.group_tab > 0 }"> <%-- 답변이 있으면~ --%>
+ 	<%-- 답변이 있으면~ --%><c:if test="${rvo.group_tab > 0 }"> 
  			                <c:forEach var="i" begin="1" end="${rvo.group_tab }">
  			                  &nbsp;&nbsp;
  			                </c:forEach>
@@ -137,22 +156,42 @@ $(function() {
  			              ●${rvo.name }&nbsp;(${rvo.dbday })
  			            </td>
  			            <td class="text-right">
- 			              <span class="btn btn-xs btn-success ups" data-no="${rvo.no }">수정</span>
- 			              <a href="#" class="btn btn-xs btn-info">삭제</a>
- 			              <a href="#" class="btn btn-xs btn-warning">댓글</a>
+ <%--댓글의 수정삭제답글 버튼 --%>			            
+ 					    <c:if test="${sessionScope.id!=null }">	<%--로그인 되었고 --%>
+ 					      <c:if test="${sessionScope.id == rvo.id }">	<%-- 본인이 썼는지 --%>
+ 			                <span class="btn btn-xs btn-success ups" data-no="${rvo.no }">수정</span>
+ 			                <a href="../board/reply_delete.do?no=${rvo.no}&bno=${vo.no}" class="btn btn-xs btn-info">삭제</a>
+ 			              </c:if> 
+ 			                <span class="btn btn-xs btn-warning ins" data-no="${rvo.no }">댓글</span>
+ 			            </c:if> 
  			            </td>
  			          </tr>
  			          <tr>
  			           <td colspan="2"><pre style="white-space:pre-wrap; background-color:white; border:none">${rvo.msg }</pre></td>
  			          </tr>
+ 			          
+ <%--대댓글--%>		          
+ 			           <tr style="display:none" class="reins" id="k${rvo.no}"> <%--수정버튼 여러개 >> 구분 --%>
+ 			          <td colspan="2">
+				  	   <form method="post" action="../board/reply_reply_insert.do" class="inline">
+				  	     <input type=hidden name=bno value="${vo.no }"> <%-- 페이지 이동하는 변수 --%>
+				  	 <%-- bno는 다시 detail.do로 이동 --%>    
+				  	     <input type=hidden name=pno value="${rvo.no }"> <%-- rvo에 해당하는 msg를 변경 (수정대상)--%>
+				  	     <textarea rows="5" cols="55" name="msg" style="float:left"></textarea>
+						 <input type=submit value="댓글쓰기" style="width:100px;height:104px; background-color:green; color:white">
+				  	   </form>
+				  	  </td>
+				  	  </tr>
+				  	  
+				  	  
  			          <tr style="display:none" class="updates" id="u${rvo.no}"> <%--수정버튼 여러개 >> 구분 --%>
  			          <td colspan="2">
 				  	   <form method="post" action="../board/reply_update.do" class="inline">
 				  	     <input type=hidden name=bno value="${vo.no }"> <%-- 페이지 이동하는 변수 --%>
 				  	 <%-- bno는 다시 detail.do로 이동 --%>    
 				  	     <input type=hidden name=no value="${rvo.no }"> <%-- rvo에 해당하는 msg를 변경 (수정대상)--%>
-				  	     <textarea rows="5" cols="60" name="msg" style="float:left">${rvo.msg }</textarea>
-						 <input type=submit value="댓글수정" style="width:120px;height:104px; background-color:green; color:white">
+				  	     <textarea rows="5" cols="55" name="msg" style="float:left">${rvo.msg }</textarea>
+						 <input type=submit value="댓글수정" style="width:100px;height:104px; background-color:green; color:white">
 				  	   </form>
 				  	  </td>
 				  	  </tr>

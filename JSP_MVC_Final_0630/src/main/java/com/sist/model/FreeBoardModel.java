@@ -140,4 +140,6 @@ public class FreeBoardModel {
 		request.setAttribute("no", vo.getNo());
 		return "../board/update_ok.jsp";
 	}
+	
+	
 }
