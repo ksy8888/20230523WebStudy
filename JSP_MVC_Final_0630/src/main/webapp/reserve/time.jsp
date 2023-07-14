@@ -13,7 +13,7 @@ $(function() {
 			let time = $(this).text();
 			$('#ft').show();
 			$('#food_t').text(time);
-//   $('#r_time').val(time);			
+		    $('#r_time').val(time);			  //
 			$.ajax({
 				type: 'post',
 				url: 'inwon.do',

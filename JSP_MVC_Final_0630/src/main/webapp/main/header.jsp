@@ -117,7 +117,7 @@ $(function() {
 	          	request.getAttribute("name")
 	           --%>
 	          <c:if test="${sessionScope.id != null }">
-	          <li><a href="pages/full-width.html">맛집 예약</a></li>
+	          <li><a href="../reserve/reserve_main.do">맛집 예약</a></li>
 	          <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
 	          </c:if>
 	        </ul>
@@ -145,7 +145,7 @@ $(function() {
 	      <li><a href="../goods/goods_list.do">레시피 스토어</a></li>
 	      <li><a class="drop" href="#">커뮤니티</a>
 	        <ul>
-	          <li><a href="pages/gallery.html">공지사항</a></li>
+	          <li><a href="../notice/notice_list.do">공지사항</a></li>
 	          <li><a href="../board/list.do">자유게시판</a></li>
 	        <c:if test="${sessionScope.id != null }"> 
 	          <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
@@ -154,10 +154,10 @@ $(function() {
 	      </li>
 	     <c:if test="${sessionScope.id != null }">
 	     	 <c:if test="${sessionScope.admin == 'n' }">
-	     	 	<li><a href="#">마이페이지</a></li>
+	     	 	<li><a href="../mypage/mypage_main.do">마이페이지</a></li> 
 	     	 </c:if>
 	     	 <c:if test="${sessionScope.admin == 'y' }">
-	     	 	<li><a href="#">관리자페이지</a></li>
+	     	 	<li><a href="../adminpage/adminpage_main.do">관리자페이지</a></li>
 	     	 </c:if>
 	     </c:if>
 	      

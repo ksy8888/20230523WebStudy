@@ -82,6 +82,8 @@ public class FreeBoardModel {
 		
 ///댓글 읽기
 		FreeBoardReplyDAO fdao = FreeBoardReplyDAO.newInstance();
+		
+		
 		List<FreeBoardReplyVO> list = fdao.replyListData(Integer.parseInt(no)); //no게시물번호의 댓글을 읽어와라
 		request.setAttribute("list", list);
 		

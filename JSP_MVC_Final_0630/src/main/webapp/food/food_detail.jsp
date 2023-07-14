@@ -98,12 +98,28 @@ $(function() {
 	  			  </td>
 	  			 </tr>
 	  			 </c:if>
+<%-- 좋아요/찜 --%>	  			 
 	  			 <tr>
 	  			   <td colspan="2" class="text-right">
-	  			     <a href="#" class="btn btn-xs btn-danger">찜하기</a>
-	  			     <a href="#" class="btn btn-xs btn-success">좋아요(0)</a>
-	  			     <a href="#" class="btn btn-xs btn-info">예약</a>
-	  			     <a href="../food/food_category_list.do?cno=${vo.cno}" class="btn btn-xs btn-danger">목록</a>
+	  			   <c:if test="${sessionScope.id != null }">
+	  			    <c:if test="${jjim_count == 0 }">	 <!-- food_detail에서 처리 -->		    
+	  			     <a href="../jjim/jjim_insert.do?fno=${vo.fno }" class="btn btn-xs btn-danger">찜하기</a>
+	  			    </c:if>
+	  			     <c:if test="${jjim_count != 0 }">	  			    
+	  			     <span class="btn btn-xs btn-default">찜하기</span>
+	  			    </c:if>	
+<%-- --%>	  			      			    
+	  			     <c:if test="${like_count == 0 }">
+		  			     <a href="../like/like_insert.do?fno=${vo.fno }" class="btn btn-xs btn-success"><img src="../board/image/nlike.png" style="width:20px; height:20px;" alt=""><!-- 좋아요 -->(${like_total })</a>
+		  			 </c:if>
+		  			 <c:if test="${like_count != 0 }">	  			    
+	  			     <span class="btn btn-xs btn-default"><img src="../board/image/like1.png" style="width:20px; height:20px;" alt="">(${like_total })</span>
+	  			    </c:if>
+		  			  <c:if test="">    
+		  			     <a href="../reserve/reserve_main.do" class="btn btn-xs btn-info">예약</a>
+		  			     <a href="../food/food_category_list.do?cno=${vo.cno}" class="btn btn-xs btn-danger">목록</a>
+		  			  </c:if>
+	  			   </c:if>
 	  			   </td>
 	  			 </tr>
 	  			</table>
@@ -207,6 +223,27 @@ $(function() {
 					    } 
 					});    
 				</script>
+				<div style="height:10px">
+				 <table class="table">
+				  <caption><h3>레시피</h3></caption>
+				   <tr>
+				    <td>
+				      <c:forEach var="rvo" items="${reList }">
+				        <table class="table">
+				         <tr>
+				          <td class="text-center">
+				            <img src="${rvo.poster }" style="width:100%">
+				          </td>
+				         </tr>
+				         <tr>
+				          <td>${rvo.title }</td>
+				         </tr>
+				        </table>
+				      </c:forEach>
+				    </td>
+				   </tr>
+				 </table>
+				</div>
 	  		</div>
 	  	</div>
 	  </main>

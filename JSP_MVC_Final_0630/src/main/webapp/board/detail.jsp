@@ -155,6 +155,8 @@ $(function() {
  			              </c:if>
  			              ●${rvo.name }&nbsp;(${rvo.dbday })
  			            </td>
+ 			            
+ 			            
  			            <td class="text-right">
  <%--댓글의 수정삭제답글 버튼 --%>			            
  					    <c:if test="${sessionScope.id!=null }">	<%--로그인 되었고 --%>
@@ -195,6 +197,8 @@ $(function() {
 				  	   </form>
 				  	  </td>
 				  	  </tr>
+				  	  
+				  	  
  			        </table>
  			      </c:forEach>
  			    </td>

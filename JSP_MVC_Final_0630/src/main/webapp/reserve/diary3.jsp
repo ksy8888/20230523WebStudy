@@ -28,7 +28,7 @@ $(function () {
 		let rday = year+"년도 "+month+"월 "+day+"일";
 		$('#fd').show();
 		$('#food_day').text(rday);
-//      $('#r_day').val(rday); 선택하는 위치에 값 채워줌		
+      $('#r_day').val(rday); //선택하는 위치에 값 채워줌		
 		$.ajax({
 			type:'post',
 			url: 'time.do',

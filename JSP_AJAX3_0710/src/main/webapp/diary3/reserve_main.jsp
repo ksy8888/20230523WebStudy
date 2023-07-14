@@ -104,6 +104,34 @@ $(function() {
 	             <span id="food_t"></span>
 	           </td>
 	         </tr>
+	         <tr>
+	           <td colspan="2">
+	             <span style="color:gray; display:none;" id="fi">예약인원: </span>
+<%-- --%>        <span id="food_i"></span>
+	           </td>
+	         </tr>
+	         <%--
+ ** >> 버튼 클릭시 값 보내줘야함	         
+	         no NUMBER, 제외
+		    id VARCHAR2(20),	session
+		 **   fno NUMBER,
+		 **   rday VARCHAR2(30) CONSTRAINT ri_day_nn NOT NULL,
+		 **   rtime VARCHAR2(30) CONSTRAINT ri_time_nn NOT NULL,
+		 **   inwon VARCHAR2(30) CONSTRAINT ri_inwon_nn NOT NULL,
+		    rok CHAR(1) DEFAULT 'n',
+		    regdate DATE DEFAULT SYSDATE
+	          --%>
+	         <tr id="ok" style="display:none">
+	          <td colspan="2" class="text-center">
+	           <form method="post" action="../reserve/reserve_ok.do">
+	            <input type=hidden name="fno" id="r_fno"/>
+	            <input type=hidden name="rday" id="r_day"/>
+	            <input type=hidden name="rtime" id="r_time"/>
+	            <input type=hidden name="inwon" id="r_inwon"/>
+	            <input type=submit value="예약" class="btn btn-lg btn-primary">
+	           </form>
+	          </td>
+	         </tr>
 	        </table>
 	      </td>
 	     </tr>
