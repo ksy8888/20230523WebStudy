@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+
 <script type="text/javascript">
 $(function() {
 	
@@ -93,16 +94,16 @@ $(function() {
 	      <li><a class="drop" href="#">회원</a>
 	        <ul>
 	          <li><a href="../member/join.do">회원 가입</a></li>	<%-- Model로 넘어감 먼저 application.xml 가서 bean등록--%>
-	          <li><a href="pages/full-width.html">아이디 찾기</a></li>
-	          <li><a href="pages/sidebar-left.html">비밀번호 찾기</a></li>
+	          <li><a href="../member/idfind.do">아이디 찾기</a></li>
+	          <li><a href="../member/passwordfind.do">비밀번호 찾기</a></li>
 	        </ul>
 	      </li>
 	      </c:if>
 	      <c:if test="${sessionScope.id != null }"> <%-- 로그인 상태 --%>
 	       <li><a class="drop" href="#">회원</a>
 	        <ul>
-	          <li><a href="pages/gallery.html">회원 수정</a></li>
-	          <li><a href="pages/full-width.html">회원 탈퇴</a></li>
+	          <li><a href="../member/member_update.do">회원 수정</a></li>
+	          <li><a href="../member/member_delete.do">회원 탈퇴</a></li>
 	        </ul>
 	      </li>
 	      </c:if>
@@ -148,7 +149,7 @@ $(function() {
 	          <li><a href="../notice/notice_list.do">공지사항</a></li>
 	          <li><a href="../board/list.do">자유게시판</a></li>
 	        <c:if test="${sessionScope.id != null }"> 
-	          <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
+	          <li><a href="../replyboard/list.do">묻고답하기</a></li>
 			</c:if>	          
 	        </ul>
 	      </li>

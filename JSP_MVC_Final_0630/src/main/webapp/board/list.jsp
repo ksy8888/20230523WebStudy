@@ -28,15 +28,21 @@
 		  	  <th width=20% class="text-center">작성일</th>
 		  	  <th width=10% class="text-center">조회수</th>
 	  	 </tr>
-	  	 <c:forEach var="vo" items="${list }">
+	  	 <%-- <c:forEach var="vo" items="${list }">
 	  	  <tr>
-	  	  		<td width=10% class="text-center">${vo.no }</td>
-		  	  <td width=45%><a href="../board/detail.do?no=${vo.no}">${vo.subject}</a></td>
+	  	  	  <td width=10% class="text-center">${vo.no }</td>
+		  	  <td width=45%>
+		  	   <c:if test="${vo.group_tab == 1 }">	  	   
+		  	      &nbsp;&nbsp;
+		  	     <img src="../replyboard/image/re_icon.png">
+		  	   </c:if>
+		  	    <a href="../board/detail.do?no=${vo.no}">${vo.subject}</a>
+			  </td>
 		  	  <td width=15% class="text-center">${vo.name}</td>
 		  	  <td width=20% class="text-center">${vo.dbday}</td>
 		  	  <td width=10% class="text-center">${vo.hit}</td>
 	  	  </tr>
-	  	 </c:forEach>
+	  	 </c:forEach> --%>
 	  	</table>
 	  	</div>
 	  </main>
