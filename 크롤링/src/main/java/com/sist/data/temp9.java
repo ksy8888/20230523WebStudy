@@ -25,7 +25,7 @@ public class temp9 {
     public static final String WEB_DRIVER_PATH = "C:\\chromedriver_win64\\chromedriver.exe";
    // mangoDAO dao = mangoDAO.newInstance();
     public static void main(String[] args) throws Exception{
-        // Selenium 웹 드라이버 설정
+        // Selenium 웹 드라이버 설정 
         String fulllink = null;
 		/* String fulllink1 = null; */
         System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
