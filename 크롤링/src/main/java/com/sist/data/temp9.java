@@ -27,7 +27,7 @@ public class temp9 {
     public static void main(String[] args) throws Exception{
         // Selenium 웹 드라이버 설정 
         String fulllink = null;
-		/* String fulllink1 = null; */
+		/* String fulllink1 = null; */ 
         System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--headless"); // 브라우저 창 숨기기
