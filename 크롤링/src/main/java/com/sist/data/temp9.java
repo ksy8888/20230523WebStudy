@@ -34,7 +34,7 @@ public class temp9 {
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://o2o.ohou.se/remodeling/home/discovery");
-//        WebElement webElement = null;
+//        WebElement webElement = null; 
         
         List<String> fulllinks = new ArrayList<>();
 		/* List<String> fulllinks1 = new ArrayList<>(); */
