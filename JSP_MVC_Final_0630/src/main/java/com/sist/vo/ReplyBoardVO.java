@@ -22,6 +22,10 @@ public class ReplyBoardVO {
 	private String id,name,subject,content,pwd,dbday;
 	private Date regdate;
 	
+	
+	
+	
+	
 	public int getNo() {
 		return no;
 	}

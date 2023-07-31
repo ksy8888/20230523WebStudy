@@ -43,7 +43,7 @@
 		  	      &nbsp;&nbsp;
 		  	     <img src="../replyboard/image/re_icon.png">
 		  	   </c:if>
-		  	    <a href="../board/detail.do?no=${vo.no}">${vo.subject}</a>
+		  	    <a href="../replyboard/detail.do?no=${vo.no}">${vo.subject}</a>
 			  </td>
 		  	  <td width=15% class="text-center">${vo.name}</td>
 		  	  <td width=20% class="text-center">${vo.dbday}</td>

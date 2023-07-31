@@ -62,6 +62,9 @@ public class ReplyBoardDAO {
 			}
 			
 			rs.close();
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -186,6 +189,8 @@ ISREPLY             NUMBER     DEFAULT 0
 			vo.setDbday(rs.getString(6));
 			vo.setHit(rs.getInt(7));
 			rs.close();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

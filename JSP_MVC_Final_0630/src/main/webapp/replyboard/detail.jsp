@@ -13,7 +13,7 @@
   width: 850px; /* 가운데정렬 */
 }
 </style>
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -35,7 +35,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
         chart.draw(data, options);
       }
-    </script>
+    </script> -->
 </head>
 <body>
   <div class="wrapper row3">
@@ -77,7 +77,8 @@
 	  </div>
 	  <div style="height:10px"></div>
 	  <div class="row">
-	    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+	    <!-- <div id="piechart_3d" style="width: 900px; height: 500px;"></div> -->
+	    <%-- <h3> ${vo.rvo.name }</h3> --%>
 	  </div>
 	</main>
    </div>	
