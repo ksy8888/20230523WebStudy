@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="main" class="com.sist.model.MainModel"></bean>
+	<bean id="list" class="com.sist.model.ListModel"></bean>
+	<bean id="share" class="com.sist.model.ShareModel"></bean>
+	<bean id="food" class="com.sist.model.FoodModel"></bean>
+	<bean id="member" class="com.sist.model.MemberModel"></bean>
+	
+	<bean id="product" class="com.sist.model.ProductModel"></bean>
+	<bean id="search" class="com.sist.model.SearchModel"></bean>
+	<bean id="reserve" class="com.sist.model.ReserveModel"></bean>
+	<bean id="my" class="com.sist.model.MyPageModel"/>
+	<bean id="admin" class="com.sist.model.AdminModel"/>
+	<bean id="jjim" class="com.sist.model.JjimModel"></bean>
+	
+	<bean id ="board" class="com.sist.model.FreeBoardModel"/>
+	<bean id ="rpy" class="com.sist.model.FreeBoardReplyModel"/>
+	<bean id ="blike" class="com.sist.model.FreeBoardLikeModel"/>
+	<bean id ="arply" class="com.sist.model.ReplyModel"/>
+	<bean id="heart" class="com.sist.model.HeartModel"/>
+	<bean id ="notice" class="com.sist.model.NoticeModel"/>
+	<bean id ="qna" class="com.sist.model.QnaModel"/>
+</beans>
